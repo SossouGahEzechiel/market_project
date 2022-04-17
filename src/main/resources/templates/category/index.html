@@ -28,11 +28,44 @@
     <!-- End Navbar -->
 
     <div class="container-fluid py-4">
-
-      <!-- Emplacement du code-->
-      <!-- ... -->
-      <!-- Fin d'emplacement du code-->
-
+      <div class="col-12">
+        <div class="card my-4">
+          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+            <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3 d-flex">
+              <h6 class="text-white text-capitalize ps-3" th:text="'Liste des produits en stock ('+ ${total}+')'"></h6>
+              <h6 class=" text-capitalize ps-3">
+                <a th:href="@{/category/create}" class="btn text-white" aria-disabled="true"><i
+                    class="material-icons opacity-10">add</i> Nouvelle catégorie</a>
+              </h6>
+            </div>
+          </div>
+          <div class="card-body px-0 pb-2">
+            <div class="table-responsive p-0">
+              <table class="table align-items-center mb-0">
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-xs text-center">Libellé</th>
+                    <th class="text-uppercase text-xs text-center">Nombre d'article</th>
+                    <th class="opacity-7"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr th:each="category:${categories}">
+                    <td th:text="${category.lib}" class="align-middle text-center"></td>
+                    <td th:text="${0}" class="align-middle text-center"></td>
+                    <td class="align-middle text-center">
+                      <a th:href="@{/category/{id}/edit(id=${category.id})}"
+                        class="text-secondary font-weight-bold text-xs">
+                        <i class="material-icons opacity-15">edit</i></a> 
+                        <a th:href="@{/category/{id}/destroy(id=${category.id})}"><i class="material-icons opacity-10">delete</i></a> 
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
       <div th:replace="partials/_footer.html"></div>
     </div>
 
