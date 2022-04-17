@@ -20,17 +20,19 @@ public class Produit {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+    @Column(name = "lib")
     private String lib;
     private int prix;
     private int qte_seuil;
     private int qte_stock;
+
+    @Column(updatable = false)
     private LocalDate date_creat;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
     Category category;
 
-    @OneToMany
+    @OneToMany(mappedBy = "produit")
     List<Approvisionnement> approvisionnements;
 }
-

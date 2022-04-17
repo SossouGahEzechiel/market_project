@@ -21,7 +21,6 @@ public class ProduitService {
     }
 
     public void insert(Produit produit) {
-        System.out.println(produit.getId());
         produitRepository.save(produit);
     }
 

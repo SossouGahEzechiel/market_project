@@ -44,7 +44,7 @@
               <!-- <label class="form-label">Libellé</label> -->
               <select class="form-control" name="category" id="category" required>
                 <option>-- Catégorie du produit--</option>
-                <option th:each="category: ${categories}" th:text="${category.lib}" th:value="${category.id}"
+                <option th:each="category: ${categories}" th:text="${category.cat_lib}" th:value="${category.id}"
                   th:id="${category.id}"></option>
               </select>
             </div>

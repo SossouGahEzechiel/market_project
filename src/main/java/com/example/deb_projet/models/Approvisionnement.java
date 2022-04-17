@@ -22,7 +22,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Approvisionnement {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -31,7 +30,6 @@ public class Approvisionnement {
     private LocalDate date_appr;
 
     @ManyToOne
-    @JoinColumn(name= "produit_id", insertable=false, updatable=false)
+    @JoinColumn(name= "produit_id", nullable = false)
     private Produit produit;
-    private int produit_id;
 }

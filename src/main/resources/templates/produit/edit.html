@@ -6,77 +6,72 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" th:href="@{/img/apple-icon.png}">
   <link rel="icon" type="image/png" th:href="@{/img/favicon.png}">
-  <title>
-    Material Dashboard 2 by Creative Tim
-  </title>
+  <title th:text="${title} ? ${title} : 'Soft UI Dashboard by Creative Tim'"></title>
   <!--     Fonts and icons     -->
-  <link rel="stylesheet" type="text/css"
-    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
   <!-- Nucleo Icons -->
   <link th:href="@{/css/nucleo-icons.css}" rel="stylesheet" />
   <link th:href="@{/css/nucleo-svg.css}" rel="stylesheet" />
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-  <!-- Material Icons -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <link th:href="@{/css/nucleo-svg.css}" rel="stylesheet" />
   <!-- CSS Files -->
-  <link id="pagestyle" th:href="@{/css/material-dashboard.css?v=3.0.2}" rel="stylesheet" />
+  <link id="pagestyle" th:href="@{/css/soft-ui-dashboard.css}" rel="stylesheet" />
 </head>
 
-<body class="g-sidenav-show  bg-gray-200">
-  <!-- Sidebar -->
-  <div th:replace="partials/_sidebar"></div>
-  <!-- End sidebar -->
+<body class="g-sidenav-show  bg-gray-100">
+  <div th:replace="partials/_sidebar.html"></div>
 
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
-
     <!-- Navbar -->
-    <div th:replace="partials/_nav"></div>
-    <!-- End navbar -->
-    <div class="card my-4">
-      <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-        <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3 d-flex">
-          <h6 class="text-white ps-3">Modifier ce nouveau produit</h6>
+    <div th:replace="partials/_navbar.html"></div>
+    <!-- End Navbar -->
+
+    <div class="container-fluid py-4">
+      <div class="card">
+        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+          <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3 d-flex">
+            <h6 class="text-white ps-3">Modifier ce nouveau produit</h6>
+          </div>
+        </div>
+        <div class="card-body">
+          <form role="form" method="post" th:action="@{/produit/{id}/update(id = ${produit.id})}" class="form-floating">
+            <div class="input-group input-group-outline mb-3">
+              <label class="form-label">Libellé</label>
+              <input type="text" name="lib" th:value="${produit.lib}" th:placeholder="${produit.lib}"
+                class="form-control">
+            </div>
+            <div class="input-group input-group-outline mb-3">
+              <!-- <label class="form-label">Libellé</label> -->
+              <select class="form-control" name="category" id="category">
+                <option>-- Catégorie du produit--</option>
+                <option th:each="category: ${categories}" th:text="${category.cat_lib}" th:id="${category.id}" th:value="${category.id}"
+                ></option>
+              </select>
+            </div>
+            <div class="input-group input-group-outline mb-3">
+              <label class="form-label">Prix</label>
+              <input type="number" th:value="${produit.prix}" name="prix" class="form-control">
+            </div>
+            <div class="input-group input-group-outline mb-3">
+              <label class="form-label">Quantité seuil</label>
+              <input type="number" th:value="${produit.qte_seuil}" name="qte_seuil" class="form-control">
+            </div>
+            <div class="text-center">
+              <button type="submit"
+                class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Appliquer les modifications</button>
+            </div>
+          </form>
+        </div>
+        <div class="card-footer text-center pt-0 px-lg-2 px-1">
+          <p class="mb-2 text-sm mx-auto">
+            <a th:href="@{/produit/index}" class="text-primary text-gradient font-weight-bold">Annuler</a>
+          </p>
         </div>
       </div>
-      <div class="card-body">
-        <form role="form" method="post" th:action="@{/produit/{id}/update(id = ${produit.id})}" class="form-floating">
-          <div class="input-group input-group-outline mb-3">
-            <label class="form-label">Libellé</label>
-            <input type="text" name="lib" th:value="${produit.lib}" th:placeholder="${produit.lib}"
-              class="form-control">
-          </div>
-          <div class="input-group input-group-outline mb-3">
-            <!-- <label class="form-label">Libellé</label> -->
-            <select class="form-control" name="category" id="category">
-              <option>-- Catégorie du produit--</option>
-              <option th:each="category: ${categories}" th:text="${category.lib}" th:id="${category.id}" th:value="${category.id}"
-              ></option>
-            </select>
-          </div>
-          <div class="input-group input-group-outline mb-3">
-            <label class="form-label">Prix</label>
-            <input type="number" th:value="${produit.prix}" name="prix" class="form-control">
-          </div>
-          <div class="input-group input-group-outline mb-3">
-            <label class="form-label">Quantité seuil</label>
-            <input type="number" th:value="${produit.qte_seuil}" name="qte_seuil" class="form-control">
-          </div>
-          <div class="text-center">
-            <button type="submit"
-              class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Appliquer les modifications</button>
-          </div>
-        </form>
-      </div>
-      <div class="card-footer text-center pt-0 px-lg-2 px-1">
-        <p class="mb-2 text-sm mx-auto">
-          <a th:href="@{/produit/index}" class="text-primary text-gradient font-weight-bold">Annuler</a>
-        </p>
-      </div>
+      <div th:replace="partials/_footer.html"></div>
     </div>
-          <div th:replace="partials/_footer.html"></div>
-    </div>
-
+    card
   </main>
   <div th:replace="partials/_panel.html"></div>
   <!--   Core JS Files   -->

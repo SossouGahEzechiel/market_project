@@ -16,9 +16,13 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    private String lib;
+    @Column(name = "lib")
+    private String cat_lib;
 
     @OneToMany(mappedBy = "category")
     List<Produit> produits;
+
+    public int countProduit(){
+        return this.getProduits().size();
+    }
 }

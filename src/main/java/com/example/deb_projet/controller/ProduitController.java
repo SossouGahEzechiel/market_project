@@ -22,22 +22,23 @@ public class ProduitController {
     @Autowired
     CategoryService categoryService;
 
-
     @GetMapping("/index")
     public String index(Model model){
+        model.addAttribute("title","Liste des produits");
         model.addAttribute("produits",produitService.all());
         return "produit/index";
     }
 
     @GetMapping("create")
     public String create(Model model){
+        model.addAttribute("title","Ajouter un nouveau produit");
         model.addAttribute("categories", categoryService.all());
         return  "produit/create";
     }
 
-    @PostMapping("store")
+    @PostMapping(value = "store")
     public String store(Produit produit, Model model,
-         @ModelAttribute("category") Category category)
+         @ModelAttribute("category") final Category category)
     {
         produit.setQte_stock(0);
         produit.setDate_creat(LocalDate.now());
@@ -48,12 +49,14 @@ public class ProduitController {
 
     @GetMapping("{id}/show")
     public String show(@PathVariable("id") int id,Model model){
+        model.addAttribute("title","Voir les détails d'un produit");
         model.addAttribute("produit",produitService.get(id));
         return "produit/show";
     }
 
     @GetMapping("{id}/edit")
     public String edit(@PathVariable("id") int id,Model model){
+        model.addAttribute("title","Modifier les détails d'un produit");
         model.addAttribute("categories",categoryService.all());
         model.addAttribute("produit",produitService.get(id));
         // logger.info("\n\n+++++++++++++++++inside Update");
@@ -62,16 +65,10 @@ public class ProduitController {
     
     @PostMapping("{id}/update")
     public String update(@ModelAttribute("produit") Produit produit_updated, 
-        RedirectAttributes attributes,
-        //@PathVariable("id") int id,
-        @ModelAttribute("category") Category category){
-        System.out.println("JE suis ici");
-        //Produit produit = produitService.get(id);
-        //produit = produit_updated;
-        produit_updated.setCategory(category);
+        RedirectAttributes attributes){
         produitService.insert(produit_updated);
         attributes.addAttribute("id", produit_updated.getId());
-        return "redirect:/produit/{id}/show";
+        return "redirect:/produit/index";
     }
 
     @GetMapping("{id}/delete")
@@ -80,8 +77,17 @@ public class ProduitController {
         return "redirect:/produit/index";
     }
 
-    @GetMapping("base")
-    public String base(){
-        return "base";
+    @GetMapping("{id}/approvisionnement/create")
+    public String createApprovisionnement(@PathVariable("id") int id, Model model){
+        model.addAttribute("produit",produitService.get(id));
+        return "approvisionnement/create";
+    }
+
+    @GetMapping("{id}/approvisionnement/index")
+    public String ListApprovisionnement(@PathVariable("id") int id, Model model){
+        model.addAttribute("title","Liste des approvisionnements d'un produit");
+        model.addAttribute("produit",produitService.get(id));
+        model.addAttribute("approvisionnements",produitService.get(id).getApprovisionnements());
+        return "approvisionnement/index_of_produit";
     }
 }

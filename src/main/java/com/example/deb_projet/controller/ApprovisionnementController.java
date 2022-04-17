@@ -1,6 +1,7 @@
 package com.example.deb_projet.controller;
 
 import com.example.deb_projet.models.Approvisionnement;
+import com.example.deb_projet.models.Produit;
 import com.example.deb_projet.service.ApprovisionnementService;
 
 import com.example.deb_projet.service.ProduitService;
@@ -36,13 +37,17 @@ public class ApprovisionnementController {
   }
 
   @PostMapping("store")
-  public String store(@ModelAttribute("approvisionnement")Approvisionnement approvisionnement,
-                      RedirectAttributes attributes)
+  public String store(Approvisionnement approvisionnement, RedirectAttributes attributes, @RequestParam("produit") int id)
   {
     approvisionnement.setDate_appr(LocalDate.now());
+    Produit produit = produitService.get(id);
+    produit.setQte_stock(produit.getQte_stock() + approvisionnement.getQte_appr());
+    produitService.insert(produit);
+    approvisionnement.setProduit(produit);
     approvisionnementService.insert(approvisionnement);
-    attributes.addAttribute("id",approvisionnement.getId());
-    return "approvisionnement/{id}/show";
+    attributes.addAttribute("id",produit.getId());
+    //return "approvisionnement/{id}/show";
+    return "redirect:/produit/{id}/approvisionnement/index";
   }
 
   @GetMapping("{id}/show")
