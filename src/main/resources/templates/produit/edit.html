@@ -36,24 +36,24 @@
         </div>
         <div class="card-body">
           <form role="form" method="post" th:action="@{/produit/{id}/update(id = ${produit.id})}" class="form-floating">
-            <div class="input-group input-group-outline mb-3">
+            <div class="mb-3 text-sm">
               <label class="form-label">Libellé</label>
               <input type="text" name="lib" th:value="${produit.lib}" th:placeholder="${produit.lib}"
                 class="form-control">
             </div>
-            <div class="input-group input-group-outline mb-3">
-              <!-- <label class="form-label">Libellé</label> -->
+            <div class="mb-3 text-sm">
+              <label class="form-label">Catégorie du produit</label>
               <select class="form-control" name="category" id="category">
                 <option>-- Catégorie du produit--</option>
                 <option th:each="category: ${categories}" th:text="${category.cat_lib}" th:id="${category.id}" th:value="${category.id}"
                 ></option>
               </select>
             </div>
-            <div class="input-group input-group-outline mb-3">
+            <div class="mb-3 text-sm">
               <label class="form-label">Prix</label>
               <input type="number" th:value="${produit.prix}" name="prix" class="form-control">
             </div>
-            <div class="input-group input-group-outline mb-3">
+            <div class="mb-3 text-sm">
               <label class="form-label">Quantité seuil</label>
               <input type="number" th:value="${produit.qte_seuil}" name="qte_seuil" class="form-control">
             </div>
@@ -71,7 +71,6 @@
       </div>
       <div th:replace="partials/_footer.html"></div>
     </div>
-    card
   </main>
   <div th:replace="partials/_panel.html"></div>
   <!--   Core JS Files   -->

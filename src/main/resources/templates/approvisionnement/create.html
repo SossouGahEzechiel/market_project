@@ -33,19 +33,18 @@
       <div class="card">
         <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
           <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3 d-flex">
-            <h6 class="text-white ps-3">Créer un nouvel approvisionnement pour <div th:text="${produit.lib}"></div></h6>
+            <h6 class="text-white ps-3 d-flex">Créer un nouvel approvisionnement pour&nbsp; <div th:text="${produit.lib}"></div></h6>
           </div>
         </div>
         <div class="card-body">
           <form role="form" method="post" th:action="@{/approvisionnement/store}" class="form-floating">
-            <div class="input-group input-group-outline mb-3">
-              <label class="form-label">Produit</label>
-              <input type="text" name="produit" th:value="${produit.id}" th:text="${produit.lib}" th:placeholder="${produit.lib}"
-                class="form-control" readonly>
+            <div class="mb-3">
+              <label class="form-label"><span class="text-sm">Produit à approvisionner</span></label>
+              <input type="text" th:value="${produit.lib}" class="form-control" readonly>
+              <input type="text" name="produit" th:value="${produit.id}" class="form-control" readonly hidden>
             </div>
-            <div class="input-group input-group-outline mb-3">
-              <label class="form-label">Quantité entrée en stock</label>
-              <input type="number" name="qte_appr" class="form-control">
+            <div class="mb-3">
+              <input type="number" name="qte_appr" class="form-control" required placeholder="Quantité entrée en stock">
             </div>
             <div class="text-center">
               <button type="submit"

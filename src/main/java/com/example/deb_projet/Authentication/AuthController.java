@@ -37,7 +37,7 @@ public class AuthController extends WebSecurityConfigurerAdapter {
             .antMatchers("/produit/**").hasAnyRole("admin","user")
             .antMatchers("/category/**").hasRole("admin")
             .antMatchers("/approvisionnement/**").hasRole("admin")
-            .and().formLogin().loginPage("/login")
+            .and().formLogin().loginPage("/login").defaultSuccessUrl("/produit/index")
             .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login");
     }
 
@@ -54,7 +54,7 @@ public class AuthController extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @GetMapping("/login")
+    @GetMapping({"/login","/"})
     public String login(){
         return "authentication/login";
     }

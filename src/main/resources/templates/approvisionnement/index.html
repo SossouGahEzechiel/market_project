@@ -43,19 +43,19 @@
                     <div class="table-responsive p-0">
                         <table class="table align-items-center mb-0">
                             <thead>
-                                <tr>
-                                    <th scope="col">Date d'approvisionnement</th>
-                                    <th scope="col">Quantité de produit</th>
-                                    <th scope="col">Produit concerné</th>
-                                    <th scope="col"></th>
+                                <tr style="text-align: center;">
+                                    <th scope="text-uppercase text-xs text-center">Date d'approvisionnement</th>
+                                    <th scope="text-uppercase text-xs text-center">Quantité de produit</th>
+                                    <th scope="text-uppercase text-xs text-center">Produit concerné</th>
+                                    <th scope="text-uppercase text-xs text-center"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr th:each="approvisionnement:${approvisionnements}">
-                                    <td th:text="${approvisionnement.date_appr}" class="align-middle text-center"></td>
-                                    <td th:text="${approvisionnement.qte_appr}" class="align-middle text-center"></td>
-                                    <td th:text="${approvisionnement.produit.lib}"></td>
-                                    <td class="align-middle text-center">
+                                    <td th:text="${approvisionnement.date_appr}" class="align-middle text-center text-sm"></td>
+                                    <td th:text="${approvisionnement.qte_appr}" class="align-middle text-center text-sm"></td>
+                                    <td th:text="${approvisionnement.produit.lib}" class="align-middle text-center text-sm"></td>
+                                    <td class="align-middle text-center text-sm">
                                         <a href="#">
                                             <span class="svg-icon svg-icon-primary svg-icon-2x">
                                                 <svg xmlns="http://www.w3.org/2000/svg"
