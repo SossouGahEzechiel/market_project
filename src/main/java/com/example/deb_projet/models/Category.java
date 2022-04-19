@@ -16,7 +16,7 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "lib")
+    @Column(name = "lib",unique = true)
     private String cat_lib;
 
     @OneToMany(mappedBy = "category")

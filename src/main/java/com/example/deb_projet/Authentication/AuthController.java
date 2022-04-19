@@ -10,9 +10,14 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Configuration
 @EnableWebSecurity
+@Controller
+@RequestMapping("")
 public class AuthController extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -27,11 +32,12 @@ public class AuthController extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
             .antMatchers("/exemple").permitAll()
-            .antMatchers("/produit/**").hasAnyRole("1","2")
-            .antMatchers("/category/**").hasRole("1")
-            .antMatchers("/approvisionnement/**").hasRole("1")
+            .antMatchers("/login").permitAll()
+            .antMatchers("/produit/**").hasAnyRole("admin","user")
+            .antMatchers("/category/**").hasRole("admin")
+            .antMatchers("/approvisionnement/**").hasRole("admin")
             // .anyRequest().authenticated()
-            .and().httpBasic();
+            .and().formLogin().loginPage("/login");
     }
 
     @Bean
@@ -45,5 +51,10 @@ public class AuthController extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
+    }
+
+    @GetMapping("/login")
+    public String login(){
+        return "authentication/login";
     }
 }

@@ -90,4 +90,9 @@ public class ProduitController {
         model.addAttribute("approvisionnements",produitService.get(id).getApprovisionnements());
         return "approvisionnement/index_of_produit";
     }
+
+    @GetMapping("")
+    public String exemple(){
+        return "exemple";
+    }
 }
