@@ -51,11 +51,11 @@
                   <form role="form" th:action="@{/login}" method="post">
                     <label>Pseudo</label>
                     <div class="mb-3">
-                      <input type="text" class="form-control" name="username" placeholder="Pseudo" aria-label="Pseudo" aria-describedby="pseudo-addon">
+                      <input type="text" class="form-control" name="username" placeholder="Pseudo" aria-label="Pseudo" aria-describedby="pseudo-addon" required>
                     </div>
                     <label>Mot de passe</label>
                     <div class="mb-3">
-                      <input type="password" class="form-control" name="password" placeholder="Mot de passe" aria-label="Password" aria-describedby="password-addon">
+                      <input type="password" class="form-control" name="password" placeholder="Mot de passe" aria-label="Password" aria-describedby="password-addon" required>
                     </div>
                     <!-- <div class="form-check form-switch">
                       <input class="form-check-input" type="checkbox" id="rememberMe" checked="">

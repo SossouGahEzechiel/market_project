@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,8 +37,8 @@ public class AuthController extends WebSecurityConfigurerAdapter {
             .antMatchers("/produit/**").hasAnyRole("admin","user")
             .antMatchers("/category/**").hasRole("admin")
             .antMatchers("/approvisionnement/**").hasRole("admin")
-            // .anyRequest().authenticated()
-            .and().formLogin().loginPage("/login");
+            .and().formLogin().loginPage("/login")
+            .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login");
     }
 
     @Bean
