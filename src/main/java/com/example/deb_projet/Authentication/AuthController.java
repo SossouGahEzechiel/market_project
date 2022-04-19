@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Configuration
 @EnableWebSecurity
 @Controller
-@RequestMapping("")
 public class AuthController extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -37,7 +36,7 @@ public class AuthController extends WebSecurityConfigurerAdapter {
             .antMatchers("/produit/**").hasAnyRole("admin","user")
             .antMatchers("/category/**").hasRole("admin")
             .antMatchers("/approvisionnement/**").hasRole("admin")
-            .and().formLogin().loginPage("/login")
+            .and().formLogin().loginPage("/login").defaultSuccessUrl("/produit")
             .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login");
     }
 
