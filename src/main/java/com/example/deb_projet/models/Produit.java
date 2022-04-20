@@ -3,9 +3,10 @@ package com.example.deb_projet.models;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.lang.Nullable;
+import lombok.ToString;
 
 import javax.persistence.*;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = "category")
 public class Produit {
 
     @Id

@@ -37,21 +37,13 @@ public class CategoryService {
     public void destroy(int id){
         Optional<Category> categoryOptional = categoryRepository.findById(id);
         if (categoryOptional.isPresent()) {
-            Category category;
-            category = categoryOptional.get();
-            List<Produit> produitList = category.getProduits();
-            //System.out.println(categoryOptional.get().getProduits().size());
-            //System.out.println(produitList);
+            List<Produit> produitList = categoryOptional.get().getProduits();
             for (Produit produit : produitList) {
-                System.out.println("Je rentre dans la boucle");
-                //System.out.println("+++++ Avant"+produit.getCategory().toString()+"++++++");
                 produit.setCategory(null);
                 produitService.insert(produit);
-                //System.out.println("+++++ Après"+produit.getCategory().toString()+"++++++");
             }
 
             categoryRepository.deleteById(id);
-            System.out.println("ok c'est fait");
         }
     }
 
