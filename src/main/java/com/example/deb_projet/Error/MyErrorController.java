@@ -33,6 +33,7 @@ public class MyErrorController implements ErrorController {
         return "errors/error-401";
       }
     }
+    model.addAttribute("title", "Erreur non repertoriée");
     return "errors/error";
   }
 }

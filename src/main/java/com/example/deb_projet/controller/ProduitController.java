@@ -2,6 +2,7 @@ package com.example.deb_projet.controller;
 
 import com.example.deb_projet.models.Category;
 import com.example.deb_projet.models.Produit;
+import com.example.deb_projet.models.Research;
 import com.example.deb_projet.service.CategoryService;
 import com.example.deb_projet.service.ProduitService;
 
@@ -38,7 +39,7 @@ public class ProduitController {
 
     @PostMapping(value = "store")
     public String store(Produit produit, Model model,
-         @ModelAttribute("category") final Category category)
+        @ModelAttribute("category") Category category)
     {
         produit.setQte_stock(0);
         produit.setDate_creat(LocalDate.now());
@@ -59,15 +60,12 @@ public class ProduitController {
         model.addAttribute("title","Modifier les détails d'un produit");
         model.addAttribute("categories",categoryService.all());
         model.addAttribute("produit",produitService.get(id));
-        // logger.info("\n\n+++++++++++++++++inside Update");
         return "produit/edit";
     }
     
     @PostMapping("{id}/update")
-    public String update(@ModelAttribute("produit") Produit produit_updated, 
-        RedirectAttributes attributes){
+    public String update(@ModelAttribute("produit") Produit produit_updated){
         produitService.insert(produit_updated);
-        attributes.addAttribute("id", produit_updated.getId());
         return "redirect:/produit/index";
     }
 
@@ -94,5 +92,12 @@ public class ProduitController {
     @GetMapping("")
     public String exemple(){
         return "exemple";
+    }
+
+    @PostMapping("search")
+    public String search(Model model,@RequestParam("research") String research){
+        model.addAttribute("produits", produitService.searcher(research));
+        model.addAttribute("title", "Resultat des recherche");
+        return "produit/index";
     }
 }

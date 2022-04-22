@@ -28,8 +28,7 @@ public class CategoryService {
     public Category get(int id){
         Optional<Category> categoryOptional = categoryRepository.findById(id);
         if(categoryOptional.isPresent()) {
-            Category category;
-            return category = categoryOptional.get();
+            return categoryOptional.get();
         }
         throw new RuntimeException("An error occured");
     }

@@ -45,8 +45,8 @@
               <label class="form-label">Catégorie du produit</label>
               <select class="form-control" name="category" id="category">
                 <option>-- Catégorie du produit--</option>
-                <option th:each="category: ${categories}" th:text="${category.cat_lib}" th:id="${category.id}" th:value="${category.id}"
-                ></option>
+                <option th:each="category: ${categories}" th:text="${category.cat_lib}" th:id="${category.id}" 
+                th:value="${category.id}" th:selected="${category.id == produit.getCategory().getId()}"></option>
               </select>
             </div>
             <div class="mb-3 text-sm">
