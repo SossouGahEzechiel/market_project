@@ -18,18 +18,15 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public void insert(User sale){
-        userRepository.save(sale);
+    public void insert(User user){
+        userRepository.save(user);
     }
 
     public User get(int id){
         Optional<User> userOptional = userRepository.findById(id);
         if(userOptional.isPresent()){
-            User user;
-            user = userOptional.get();
-            return user;
+            return userOptional.get();
         }
-
         throw new RuntimeException("An error occurred");
     }
 

@@ -10,4 +10,9 @@ import java.util.List;
 public interface ProduitRepository extends JpaRepository<Produit, Integer> {
 
     List<Produit> findByCategoryNotNull();
+
+    // @Query("from Produit where lib like '%@req%'")
+    // List<Produit> search(@Param("req") String req);
+
+    List<Produit> findByLibIsContaining(String req);
 }

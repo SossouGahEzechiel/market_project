@@ -41,4 +41,8 @@ public class ProduitService {
             produitRepository.deleteById(id);
     }
 
+    public List<Produit> searcher(String req){
+        return produitRepository.findByLibIsContaining(req);
+    }
+
 }
