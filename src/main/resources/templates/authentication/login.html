@@ -46,6 +46,15 @@
                 <div class="card-header pb-0 text-left bg-transparent">
                   <h3 class="font-weight-bolder text-info text-gradient">Bon retour parmi nous</h3>
                   <p class="mb-0">Veuillez entrer votre pseudo et votre mot de passe pour vous connecter</p>
+                  <div  th:if="${param.error}" class="pt-3"> 
+                    <hr class="horizontal dark mt-0"/> 
+                    <p class="text-danger ">Les identifiants entrés sont invalides</p>
+                  </div>
+                  <div th:if="${param.logout}" class="pt-3"> 
+                    <hr class="horizontal dark mt-0"/> 
+                    <p class="text-success ">Les identifiants entrés sont invalides</p>
+                  </div>
+                  <!-- <div class="alert alert-success" >Vous êtes déconnecté avec succès</div> -->
                 </div>
                 <div class="card-body">
                   <form role="form" th:action="@{/login}" method="post">
