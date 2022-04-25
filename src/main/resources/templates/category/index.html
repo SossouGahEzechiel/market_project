@@ -31,11 +31,22 @@
       <div class="col-12">
         <div class="card my-4">
           <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-            <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3 d-flex">
-              <h6 class="text-white text-capitalize ps-3" th:text="'Liste des produits en stock ('+ ${total}+')'"></h6>
+            <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+              <div class="row">
+                <div class="col-6 d-flex align-items-center">
+                  <!-- <h6 class="text-white ps-3 text-capitalize">Liste des produits en stock</h6> -->
+                  <h6 class="text-white ps-3" th:text="'Liste des categories de produits en stock ('+ ${total}+')'"></h6>
+                </div>
+                <div class="col-6 text-end">
+                  <h6 class=" text-capitalize px-3">
+                    <a th:href="@{/category/create}" class="text-white ps-3" aria-disabled="true">Nouvelle catégorie</a>
+                  </h6>
+                </div>  
+              </div>
+              <!-- <h6 class="text-white text-capitalize ps-3" th:text="'Liste des produits en stock ('+ ${total}+')'"></h6>
               <h6 class=" text-capitalize ps-3">
                 <a th:href="@{/category/create}" class="btn text-white" aria-disabled="true">Nouvelle catégorie</a>
-              </h6>
+              </h6> -->
             </div>
           </div>
           <div class="card-body px-0 pb-2">
