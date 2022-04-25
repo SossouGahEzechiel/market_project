@@ -4,7 +4,6 @@ import com.example.deb_projet.models.Role;
 import com.example.deb_projet.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,7 +14,7 @@ public class RoleService {
     @Autowired
     RoleRepository roleRepository;
 
-    public List<Role> all(Model model){
+    public List<Role> all(){
         return roleRepository.findAll();
     }
 

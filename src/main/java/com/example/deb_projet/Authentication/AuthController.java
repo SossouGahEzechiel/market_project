@@ -1,5 +1,7 @@
 package com.example.deb_projet.Authentication;
 
+import com.example.deb_projet.service.RoleService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,17 +14,20 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Configuration
 @EnableWebSecurity
 @Controller
-@RequestMapping("")
 public class AuthController extends WebSecurityConfigurerAdapter {
 
     @Autowired
     UserPrincipalDetailService UserPrincipalDetailService;
+
+    @Autowired
+    RoleService roleService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
@@ -37,7 +42,7 @@ public class AuthController extends WebSecurityConfigurerAdapter {
             .antMatchers("/produit/**").hasAnyRole("admin","user")
             .antMatchers("/category/**").hasRole("admin")
             .antMatchers("/approvisionnement/**").hasRole("admin")
-            .and().formLogin().loginPage("/login").defaultSuccessUrl("/produit/index")
+            .and().formLogin().loginPage("/login").defaultSuccessUrl("/produit")
             .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login");
     }
 
@@ -54,8 +59,14 @@ public class AuthController extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @GetMapping({"/login","/"})
+    @GetMapping("/login")
     public String login(){
         return "authentication/login";
+    }
+
+    @GetMapping("/sign-in")
+    public String sign(Model model) {
+        model.addAttribute("roles", roleService.all());
+        return "authentication/sign";
     }
 }

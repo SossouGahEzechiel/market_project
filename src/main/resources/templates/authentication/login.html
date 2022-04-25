@@ -45,7 +45,7 @@
               <div class="card card-plain mt-3">
                 <div class="card-header pb-0 text-left bg-transparent">
                   <h3 class="font-weight-bolder text-info text-gradient">Bon retour parmi nous</h3>
-                  <p class="mb-0">Veuillez entrer votre pseudo et votre mor de passe pour vous connecter</p>
+                  <p class="mb-0">Veuillez entrer votre pseudo et votre mot de passe pour vous connecter</p>
                 </div>
                 <div class="card-body">
                   <form role="form" th:action="@{/login}" method="post">
@@ -71,7 +71,7 @@
                 <div class="card-footer text-center pt-0 px-lg-2 px-1">
                   <p class="mb-4 text-sm mx-auto">
                     Pas de compte ?
-                    <a href="javascript:;" class="text-info text-gradient font-weight-bold">Créer mon compte</a>
+                    <a th:href="@{/sign-in}" class="text-info text-gradient font-weight-bold">Créer mon compte</a>
                   </p>
                 </div>
               </div>

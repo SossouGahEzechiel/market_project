@@ -37,7 +37,7 @@ public class UserController {
 
     @GetMapping("create")
     public String create(Model model){
-        model.addAttribute("roles", roleService.all(model));
+        model.addAttribute("roles", roleService.all());
         return "user/create";
     }
 
