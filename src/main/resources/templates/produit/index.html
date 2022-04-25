@@ -32,12 +32,16 @@
         <div class="card my-4">
           <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
             <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3 ">
-              <div class="d-flex">
-                <h6 class="text-white text-capitalize ps-3">Liste des produits en stock</h6>
-                <h6 class=" text-capitalize ps-3">
-                  <a th:href="@{/produit/create}" class=" text-white ps-3" aria-disabled="true">
-                    Nouveau produit</a>
-                </h6>
+              <div class="row">
+                <div class="col-6 d-flex align-items-center">
+                  <h6 class="text-white ps-3 text-capitalize">Liste des produits en stock</h6>
+                </div>
+                <div class="col-6 text-end">
+                  <h6 class=" text-capitalize px-3">
+                    <a th:href="@{/produit/create}" class=" text-white ps-3" aria-disabled="true">
+                      Nouveau produit</a>
+                  </h6>
+                </div>
               </div>
             </div>
           </div>

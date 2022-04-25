@@ -2,7 +2,6 @@ package com.example.deb_projet.controller;
 
 import com.example.deb_projet.models.Category;
 import com.example.deb_projet.models.Produit;
-import com.example.deb_projet.models.Research;
 import com.example.deb_projet.service.CategoryService;
 import com.example.deb_projet.service.ProduitService;
 
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 
@@ -90,8 +88,9 @@ public class ProduitController {
     }
 
     @GetMapping("")
-    public String exemple(){
-        return "exemple";
+    public String exemple(Model model){
+        model.addAttribute("produits", produitService.all());
+        return "commande";
     }
 
     @PostMapping("search")
