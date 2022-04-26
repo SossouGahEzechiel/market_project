@@ -1,10 +1,8 @@
 package com.example.deb_projet.service;
 
-import com.example.deb_projet.models.Category;
 import com.example.deb_projet.models.Produit;
 import com.example.deb_projet.repository.ProduitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
