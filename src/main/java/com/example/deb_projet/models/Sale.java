@@ -2,6 +2,7 @@ package com.example.deb_projet.models;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Entity
@@ -15,8 +16,16 @@ public class Sale {
     private float total_amount;
 
     @ManyToOne
-    @JoinColumn(name = "user_id",updatable = false, nullable = false)
+    @JoinColumn(name = "user_id")
     private User user;
 
-    //@ManyToMany
+    @ManyToMany
+        @JoinTable(name = "produit_sale",
+        joinColumns  = @JoinColumn(name = "sale_id"),
+        inverseJoinColumns = @JoinColumn(name = "produit_id")
+    )
+    List<Produit> produits;
+
+    @OneToMany(mappedBy = "sale")
+    List<ProduitSale> registrations;
 }

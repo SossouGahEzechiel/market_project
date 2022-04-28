@@ -11,31 +11,31 @@ import java.util.Optional;
 @Service
 public class CommandService {
 
-    @Autowired
-    CommandRepository commandRepository;
+    // @Autowired
+    // CommandRepository commandRepository;
 
-    public List<Command> all(){
-        return commandRepository.findAll()
-;    }
+    // public List<Command> all() {
+    //     return commandRepository.findAll();
+    // }
 
-    public void insert(Command command){
-        commandRepository.save(command);
-    }
+    // public void insert(Command command) {
+    //     commandRepository.save(command);
+    // }
 
-    public Command get(int id){
-        Optional<Command> commandOptional = commandRepository.findById(id);
-        if(commandOptional.isPresent()){
-            Command command;
-            command = commandOptional.get();
-            return command;
-        }
+    // public Command get(int id) {
+    //     Optional<Command> commandOptional = commandRepository.findById(id);
+    //     if (commandOptional.isPresent()) {
+    //         Command command;
+    //         command = commandOptional.get();
+    //         return command;
+    //     }
 
-        throw new RuntimeException("An error occurred");
-    }
+    //     throw new RuntimeException("An error occurred");
+    // }
 
-    public void destroy(int id){
-        Optional<Command> commandOptional = commandRepository.findById(id);
-        if(commandOptional.isPresent())
-            commandRepository.deleteById(id);
-    }
+    // public void destroy(int id) {
+    //     Optional<Command> commandOptional = commandRepository.findById(id);
+    //     if (commandOptional.isPresent())
+    //         commandRepository.deleteById(id);
+    // }
 }

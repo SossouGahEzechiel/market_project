@@ -37,4 +37,7 @@ public class Produit {
 
     @OneToMany(mappedBy = "produit")
     List<Approvisionnement> approvisionnements;
+
+    @OneToMany(mappedBy = "produit")
+    List<ProduitSale> registrations;
 }
