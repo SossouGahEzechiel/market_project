@@ -1,0 +1,24 @@
+ <!-- command_list.insertAdjacentHTML("beforeend",
+   <hr class="horizontal dark m-2">
+   <div class="row">
+     <div class="col-md-4 mb-md-0 mb-4">
+       <select class="form-control" name="produit" id="produits" required onselect="">
+         <option>-- Selectionner un produit--</option>
+         <option th:each="produit: ${produits}" th:text="${produit.lib}" th:value="${produit.id}"
+           th:id="${produit.id}"></option>
+       </select>
+     </div>
+     <div class="col-md-2 mb-md-0 mb-4">
+       <input type="number" name="prix" class="form-control" required placeholder="Quantité">
+     </div>
+     <div class="col-md-2 mb-md-0 mb-4">
+       <input type="number" name="prix" class="form-control" required placeholder="Prix">
+     </div>
+     <div class="col-11 col-md-3 mb-md-0 mb-4">
+       <input type="text" name="prix" class="form-control" readonly placeholder="Prix total">
+     </div>
+     <div class="col-1 mb-md-0 mb-4">
+       <i class="fas fa-trash-alt pt-2"></i>
+     </div>
+   </div>
+ ); -->
