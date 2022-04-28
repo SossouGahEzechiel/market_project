@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" th:href="@{/img/apple-icon.png}">
+  <link rel="icon" type="image/png" th:href="@{/img/favicon.png}">
+  <title th:text="${title} ? ${title} : 'Soft UI Dashboard by Creative Tim'"></title>
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+  <!-- Nucleo Icons -->
+  <link th:href="@{/css/nucleo-icons.css}" rel="stylesheet" />
+  <link th:href="@{/css/nucleo-svg.css}" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <link th:href="@{/css/nucleo-svg.css}" rel="stylesheet" />
+  <!-- CSS Files -->
+  <link id="pagestyle" th:href="@{/css/soft-ui-dashboard.css}" rel="stylesheet" />
+</head>
+
+<body class="g-sidenav-show  bg-gray-100">
+  <div th:replace="partials/_sidebar.html"></div>
+
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <!-- Navbar -->
+    <div th:replace="partials/_navbar.html"></div>
+    <!-- End Navbar -->
+
+    <div class="container-fluid py-4">
+
+      <div class="col-md-12 mb-lg-0 mb-4">
+        <div class="card mt-4">
+          <div class="card-header pb-0 p-3">
+            <div class="row">
+              <div class="col-4 d-flex align-items-center">
+                <h6 class="mb-0">Passer une commande</h6>
+              </div>
+              <div class="col-4 d-flex align-items-center" style="visibility: hidden;" id="submit_button">
+                <div class="btn bg-gradient-success mb-0 text-white" onclick="document.getElementById('form').submit()">
+                  <i class="fas fa-check"></i>&nbsp;&nbsp;Valider la commande
+                </div>
+              </div>
+              <div class="col-4 text-end">
+                <div class="btn bg-gradient-dark mb-0" onclick="commandAppend();">
+                  <i class="fas fa-plus"></i>&nbsp;&nbsp;Ajouter l'article
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body p-3" id="command_list">
+            <div class="row">
+              <div class="col-md-4 mb-md-0 mb-4">
+                <select class="form-control" name="produit_lib" id="produit_lib" 
+                  th:onchange="priceSetter();">
+                  <option>-- Selectionner un produit--</option>
+                  <option th:each="produit: ${produits}" th:text="${produit.getLib()}" th:value="${produit.id}"
+                    th:id="${produit.id}" th:prix="${produit.getPrix()}"></option>
+                </select>
+              </div>
+              <div class="col-md-2 mb-md-0 mb-4">
+                <input type="number" id="produit_qte" class="form-control" placeholder="Quantité" oninput="totalPrice();" onkeypress="totalPrice();">
+              </div>
+              <div class="col-md-2 mb-md-0 mb-4">
+                <input type="text" id="prix" readonly class="form-control" placeholder="Prix">
+              </div>
+              <div class="col-12 col-md-4 mb-md-0 mb-4">
+                <input type="text" id="prix_total" class="form-control" readonly placeholder="Prix total">
+              </div>
+            </div>
+            <hr class="horizontal dark m-2">
+              <div class="text-center">Liste de mes articles</div>
+            <hr class="horizontal dark m-2">
+            <div class="card-body px-0 pt-0 pb-2">
+              <div class="table-responsive p-0">
+                <table class="table align-items-center mb-0">
+                  <thead>
+                    <tr>
+                      <th class="text-uppercase text-xs text-center">Produit</th>
+                      <th class="text-uppercase text-xs text-center">Quantité</th>
+                      <th class="text-uppercase text-xs text-center">Prix unitaire</th>
+                      <th class="text-uppercase text-xs text-center">Prix total</th>
+                      <th class="text-secondary opacity-7"></th>
+                    </tr>
+                  </thead>
+                  <form id="form" th:action="@{/}" method="post">
+                    <tbody id="t_body">
+                    </tbody>
+                  </form>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div th:replace="partials/_footer.html"></div>
+    </div>
+
+  </main>
+  <div th:replace="partials/_panel.html"></div>
+  <!--   Core JS Files   -->
+  <script th:src="@{/js/core/popper.min.js}"></script>
+  <script th:src="@{/js/core/bootstrap.min.js}"></script>
+  <script th:src="@{/js/plugins/perfect-scrollbar.min.js}"></script>
+  <script th:src="@{/js/plugins/smooth-scrollbar.min.js}"></script>
+  <script th:src="@{/js/plugins/chartjs.min.js}"></script>
+  <script>
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+      var options = {
+        damping: '0.5'
+      }
+      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
+  </script>
+  <script th:inline="javascript">
+    var produit_list = document.getElementById("produits");
+    var t_doby = document.getElementById("t_body");
+
+    var produit_selected_lib = document.getElementById("produit_lib");
+    var produit_selected_qte = document.getElementById("produit_qte");
+    var produit_selected_prix_unit = document.getElementById("prix");
+    var produit_selected_prix_total = document.getElementById("prix_total");
+
+    var added_row = document.getElementsByName("added_row");
+    var added_h6 = document.getElementsByName("added_h6");
+
+    var submit_button = document.getElementById("submit_button");
+
+
+    function commandAppend() {
+      if(fieldChecker()){
+        addLine();
+        addValue();
+        reseter();
+        visiblitySetter();
+      }
+    }
+
+    function addLine() {
+      t_doby.insertAdjacentHTML("afterbegin",
+        '<tr name="added_row">\
+          <td>\
+            <h6 class="align-middle text-center text-sm" name="added_h6"></h6>\
+          </td>\
+          <td>\
+            <h6 class="align-middle text-center text-sm" name="added_h6"></h6>\
+          </td>\
+          <td class="align-middle text-center text-sm">\
+            <h6 class="align-middle text-center text-sm" name="added_h6"></h6>\
+          </td>\
+          <td class="align-middle">\
+            <h6 class="align-middle text-center text-sm" name="added_h6"></h6>\
+          </td>\
+          <td class="align-middle">\
+            <div class="font-weight-bold text-center" onclick="droper(this.parentElement.parentElement);">\
+              <i class="fas fa-trash-alt pt-2"></i>drop\
+            </div>\
+          </td>\
+        </tr>'
+      );  
+    }
+
+    function addValue(){
+      added_h6.item(3).innerText = produit_selected_prix_total.value;
+      added_h6.item(2).innerText = produit_selected_prix_unit.value;
+      added_h6.item(1).innerText = produit_selected_qte.value;
+      added_h6.item(0).innerText = produit_selected_lib.options[produit_selected_lib.selectedIndex].text;
+    }
+
+    function totalPrice() {
+      var current_qte = produit_selected_qte.value;
+      var current_price = produit_selected_prix_unit.value;
+      if ((current_qte != null) && (current_price != null) && (current_qte >= 0)) {
+        produit_selected_prix_total.value = Number (current_qte) * Number (current_price);
+      }
+    }
+
+    function priceSetter() {
+      produit_selected_prix_unit.value = produit_selected_lib.options[produit_selected_lib.selectedIndex].getAttribute("prix");
+      totalPrice();
+    }
+
+    function reseter() {
+      produit_selected_lib.selectedIndex = 0;
+      produit_selected_prix_total.value = "";
+      produit_selected_qte.value = "";
+      produit_selected_prix_unit.value = "";
+    }
+
+    function droper(the_element) {
+      the_element.remove();
+      visiblitySetter();
+    }
+
+    function visiblitySetter() {
+      if (added_row.length > 0 ){
+        submit_button.style.visibility = "visible";
+      } 
+      else {
+      submit_button.style.visibility = "hidden";
+      }
+    }
+
+    function fieldChecker() {
+      if ((produit_selected_lib.value != null) && (produit_selected_qte.value != null)) {
+        console.log(true);
+        return true;
+      }
+      else return false;
+    }
+
+  </script>
+  <!-- Github buttons -->
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
+  <script th:src="@{/js/soft-ui-dashboard.min.js}"></script>
+</body>
+
+</html>

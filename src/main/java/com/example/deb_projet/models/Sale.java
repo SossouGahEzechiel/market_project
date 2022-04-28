@@ -1,10 +1,13 @@
 package com.example.deb_projet.models;
 
 import javax.persistence.*;
+
+import lombok.Data;
+
 import java.time.LocalDate;
 import java.util.List;
 
-
+@Data
 @Entity
 @Table(name = "sales")
 public class Sale {
