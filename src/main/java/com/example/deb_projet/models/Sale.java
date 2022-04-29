@@ -3,6 +3,7 @@ package com.example.deb_projet.models;
 import javax.persistence.*;
 
 import lombok.Data;
+import lombok.ToString;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "sales")
+@ToString(exclude = {"user","registrations"})
 public class Sale {
 
     @Id

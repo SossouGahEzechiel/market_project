@@ -58,9 +58,12 @@ public class CommandController {
     }
 
     @PostMapping("{id}/store-one")
-    public void store(Model model, CommandLine commandLine, Sale sale, @PathVariable("id") int id, ProduitSale produitSale) {
+    public String store(CommandLine commandLine, @PathVariable("id") int id) {
 
         Produit produit = produitService.get(id);
+        ProduitSale produitSale = new ProduitSale();
+        Sale sale = new Sale();
+
         sale.setUser(userService.get(1));
         sale.setSale_date(LocalDate.now());
         sale.setTotal_amount(commandLine.getQte_produit() * produit.getPrix());
@@ -74,6 +77,8 @@ public class CommandController {
 
         produit.setQte_stock(produit.getQte_stock() - commandLine.getQte_produit());
         produitService.insert(produit);
+
+        return "redirect:/command/produits";
     }
 
     @PostMapping("store-many")
