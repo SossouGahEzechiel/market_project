@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+  xmlns:sec="http://www.thymleaf.org/extras/spring-security">
 
 <head>
   <meta charset="utf-8" />
@@ -90,7 +91,7 @@
                       </a>
                       <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4"
                         aria-labelledby="dropdownMenuButton">
-                        <li class="mb-2" data-toggle="modal" data-target="#exampleModalCenter" th:onclick="idSetter(${sale.getId()});">
+                        <li class="mb-2" data-toggle="modal" data-target="#exampleModalCenter" th:onclick="idSetter(/*[[${sale.id}]]*/);">
                           <a class="dropdown-item border-radius-md">
                             <div class="d-flex py-1">
                               <div class="d-flex flex-column justify-content-center">
