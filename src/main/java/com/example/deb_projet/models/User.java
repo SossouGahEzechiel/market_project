@@ -38,8 +38,7 @@ public class User {
     @JoinColumn(name = "role_id",nullable = false)
     private Role role;
 
-    @OneToMany
-    @JoinColumn()
+    @OneToMany(mappedBy = "user")
     private List<Sale> purchases;
 
     public User(String email, String nom, int num_tel, String prenom, char sexe,Role role,String pswd, String pseudo){

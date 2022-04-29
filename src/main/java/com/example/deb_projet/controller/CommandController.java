@@ -47,7 +47,7 @@ public class CommandController {
     // Action qui retourne la vue de création d'une commande à plusieurs produits
     @GetMapping("create")
     public String create(Model model) {
-        return "user/self/produit_interface/shopping";
+        return "user/produit_interface/shopping";
     }
 
     // Action qui retourne la vue de création d'une commande à un seul produit
@@ -58,12 +58,9 @@ public class CommandController {
     }
 
     @PostMapping("{id}/store-one")
-    public void store(Model model, CommandLine commandLine, Sale sale, @PathVariable("id") int id,
-            ProduitSale produitSale) {
-        System.out.println(commandLine);
+    public void store(Model model, CommandLine commandLine, Sale sale, @PathVariable("id") int id, ProduitSale produitSale) {
 
         Produit produit = produitService.get(id);
-
         sale.setUser(userService.get(1));
         sale.setSale_date(LocalDate.now());
         sale.setTotal_amount(commandLine.getQte_produit() * produit.getPrix());
@@ -77,9 +74,11 @@ public class CommandController {
 
         produit.setQte_stock(produit.getQte_stock() - commandLine.getQte_produit());
         produitService.insert(produit);
+    }
 
-        System.out.println(sale);
-        System.out.println(produitSale);
+    @PostMapping("store-many")
+    public void store(){
+
     }
 
     @GetMapping("user/{id}/command")
