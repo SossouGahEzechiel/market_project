@@ -100,6 +100,6 @@ public class CommandController {
 
     @GetMapping("{id}/validate")
     public String commandValidate(){
-        
+        return "";
     }
 }
