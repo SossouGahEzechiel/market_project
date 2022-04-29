@@ -39,7 +39,7 @@ public class ProduitController {
     public String store(Produit produit, Model model,
         @ModelAttribute("category") Category category)
     {
-        produit.setQte_stock(0);
+        produit.setQteStock(0);
         produit.setDate_creat(LocalDate.now());
         produit.setCategory(category);
         produitService.insert(produit);
@@ -97,6 +97,13 @@ public class ProduitController {
     public String search(Model model,@RequestParam("research") String research){
         model.addAttribute("produits", produitService.searcher(research));
         model.addAttribute("title", "Resultat des recherche");
+        return "produit/index";
+    }
+
+    @GetMapping("a-approvisionner")
+    public String aApprovisionner(Model model){
+        model.addAttribute("produits",produitService.toProvide());
+        model.addAttribute("title", "Liste des produits à approvisionner");
         return "produit/index";
     }
 }

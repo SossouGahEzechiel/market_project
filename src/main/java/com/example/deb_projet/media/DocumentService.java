@@ -37,7 +37,7 @@ public class DocumentService {
     Document document = new Document(PageSize.A4);
     PdfWriter.getInstance(document, response.getOutputStream());
     
-    String facture_header = "Facturé à \n"+user.getNom()+" "+user.getPrenom()+"\n Date de facturation: "+sale.getSale_date();
+    String facture_header = "Facturé à \n"+user.getNom()+" "+user.getPrenom()+"\n Date de facturation: "+sale.getSaleDate();
 
     document.open();
 

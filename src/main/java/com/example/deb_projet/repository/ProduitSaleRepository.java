@@ -17,6 +17,6 @@ public interface ProduitSaleRepository extends JpaRepository<ProduitSale, Intege
   
   List<ProduitSale> findBySale(Sale sale);
 
-  // List<ProduitSale> findBySaleDate__enteNotNull(Sale sale);
+  // List<ProduitSale> findBySale_DateVenteNotNull(Sale sale);
 
 }

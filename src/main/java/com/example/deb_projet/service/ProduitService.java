@@ -5,6 +5,7 @@ import com.example.deb_projet.repository.ProduitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,6 +42,20 @@ public class ProduitService {
 
     public List<Produit> searcher(String req){
         return produitRepository.findByLibIsContaining(req);
+    }
+
+    public List<Produit> toProvide(){
+        List<Produit> produit_list = new ArrayList<>();
+        List<Produit> produits = produitRepository.findByCategoryNotNull();
+        produits.forEach(produit -> {
+            if(produit.getQteSeuil() >= produit.getQteStock())
+            produit_list.add(produit);
+        });
+        return produit_list;
+    }
+    
+    public List<Produit> MoreThanZero(){
+        return produitRepository.findByQteStockGreaterThan(0);
     }
 
 }

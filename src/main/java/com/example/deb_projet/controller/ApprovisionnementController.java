@@ -41,7 +41,7 @@ public class ApprovisionnementController {
       @RequestParam("produit") int id) {
     approvisionnement.setDate_appr(LocalDate.now());
     Produit produit = produitService.get(id);
-    produit.setQte_stock(produit.getQte_stock() + approvisionnement.getQte_appr());
+    produit.setQteStock(produit.getQteStock() + approvisionnement.getQte_appr());
     produitService.insert(produit);
     approvisionnement.setProduit(produit);
     approvisionnementService.insert(approvisionnement);

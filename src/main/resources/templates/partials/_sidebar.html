@@ -93,7 +93,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" th:classappend="${#httpServletRequest.getRequestURI() == '/dashboard' ? 'active':''}" href="#">
+        <a class="nav-link" th:classappend="${#httpServletRequest.getRequestURI() == '/produit/a-approvisionner' ? 'active':''}" th:href="@{/produit/a-approvisionner}">
           <div
             class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
             <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -118,11 +118,11 @@
               </g>
             </svg>
           </div>
-          <span class="nav-link-text ms-1">Virtual Reality</span>
+          <span class="nav-link-text ms-1">Produits à approvisionner</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" th:classappend="${#httpServletRequest.getRequestURI() == '/dashboard' ? 'active':''}" href="">
+        <a class="nav-link" th:classappend="${#httpServletRequest.getRequestURI() == '/command/not-validate' ? 'active':''}" th:href="@{/command/not-validate}">
           <div
             class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
             <svg width="12px" height="12px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -147,7 +147,7 @@
               </g>
             </svg>
           </div>
-          <span class="nav-link-text ms-1">RTL</span>
+          <span class="nav-link-text ms-1">Commandes à valider</span>
         </a>
       </li>
       <li class="nav-item mt-3">

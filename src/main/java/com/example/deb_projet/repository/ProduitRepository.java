@@ -15,4 +15,8 @@ public interface ProduitRepository extends JpaRepository<Produit, Integer> {
     // List<Produit> search(@Param("req") String req);
 
     List<Produit> findByLibIsContaining(String req);
+
+    List<Produit> findByQteStockLessThan(int qte_seuil);
+    
+    List<Produit> findByQteStockGreaterThan(int limite);
 }

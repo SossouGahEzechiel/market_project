@@ -30,11 +30,11 @@ public class ProduitSale {
   @Column(nullable = false)
   private int qte_produit;
 
-  @Column(nullable = false)
-  private LocalDate date_creat;
+  @Column(nullable = false, name = "date_creat")
+  private LocalDate dateCreat;
 
-  @Column(nullable = true)
-  private LocalDate date_vente;
+  @Column(nullable = true, name="date_vente")
+  private LocalDate dateVente;
 
   @ManyToOne
   @JoinColumn(name = "produit_id")

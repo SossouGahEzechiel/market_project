@@ -25,8 +25,10 @@ public class Produit {
     @Column(name = "lib")
     private String lib;
     private int prix;
-    private int qte_seuil;
-    private int qte_stock;
+    @Column(name= "qte_seuil")
+    private int qteSeuil;
+    @Column(name = "qte_stock")
+    private int qteStock;
 
     @Column(updatable = false)
     private LocalDate date_creat;

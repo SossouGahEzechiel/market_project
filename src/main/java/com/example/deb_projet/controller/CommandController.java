@@ -39,7 +39,7 @@ public class CommandController {
 
     @GetMapping("produits")
     public String index(Model model) {
-        model.addAttribute("produits", produitService.all());
+        model.addAttribute("produits", produitService.MoreThanZero());
         model.addAttribute("title", "Liste des articles");
         return "user/produit_interface/index";
     }
@@ -65,17 +65,17 @@ public class CommandController {
         Sale sale = new Sale();
 
         sale.setUser(userService.get(1));
-        sale.setSale_date(LocalDate.now());
+        sale.setSaleDate(LocalDate.now());
         sale.setTotal_amount(commandLine.getQte_produit() * produit.getPrix());
         saleService.insert(sale);
 
-        produitSale.setDate_creat(LocalDate.now());
+        produitSale.setDateCreat(LocalDate.now());
         produitSale.setQte_produit(commandLine.getQte_produit());
         produitSale.setProduit(produit);
         produitSale.setSale(sale);
         produitSaleService.insert(produitSale);
 
-        produit.setQte_stock(produit.getQte_stock() - commandLine.getQte_produit());
+        produit.setQteStock(produit.getQteStock() - commandLine.getQte_produit());
         produitService.insert(produit);
 
         return "redirect:/command/produits";
@@ -89,5 +89,17 @@ public class CommandController {
     @GetMapping("user/{id}/command")
     public String userCommandList(Model model) {
         return "";
+    }
+
+    @GetMapping("not-validate")
+    public String commandNotValidateListe(Model model){
+        model.addAttribute("not_saled", saleService.notSaled());
+        model.addAttribute("title", "Commandes non validées");
+        return "command/not-validate";
+    }
+
+    @GetMapping("{id}/validate")
+    public String commandValidate(){
+        
     }
 }

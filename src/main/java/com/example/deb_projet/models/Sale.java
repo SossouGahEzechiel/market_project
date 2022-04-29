@@ -17,7 +17,10 @@ public class Sale {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private LocalDate sale_date;
+
+    @Column(name = "sale_date")
+    private LocalDate saleDate;
+    
     private float total_amount;
 
     @ManyToOne
